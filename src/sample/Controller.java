@@ -2,6 +2,7 @@ package sample;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -40,18 +41,8 @@ public class Controller implements Initializable
                 }
                 );
 
-
+        //Generate some dummy employees for the listview with the count of 10 or less
         ObservableList<Employee> items = employeeListView.getItems();
-        Employee employee1 = new Employee();
-        Employee employee2 = new Employee();
-        employee1.firstName = "Robert";
-        employee1.lastName = "Smith";
-        employee2.firstName = "Lisa";
-        employee2.lastName = "Smith";
-
-        items.add(employee1);
-        items.add(employee2);
-
         for(int i = 0; i < 10; i++)
         {
             Employee employee = new Employee();
@@ -73,4 +64,40 @@ public class Controller implements Initializable
         items.add(faculty1);
 
     }
+
+    //Add new employee based on user inputs
+    public void add(ActionEvent actionEvent) {
+        ObservableList<Employee> empInfo = employeeListView.getItems();
+        Employee newEmployee = new Employee();
+        newEmployee.firstName = firstNameTextField.getText();
+        newEmployee.lastName = lastNameTextField.getText();
+
+        //check to see if the check box is selected then add that value to the new employee information if it is
+        if(isActiveCheckBox.isSelected())
+        {
+            newEmployee.hire();
+        }
+
+        //add the new employee information into the list empInfo then set that list into the employee listview
+        empInfo.add(newEmployee);
+        employeeListView.setItems(empInfo);
+    }
+
+    //Delete the selected employee
+    public void delete(ActionEvent actionEvent) {
+
+        //remove the selected employee from the listview
+        Worker employee = employeeListView.getSelectionModel().getSelectedItem();
+        employeeListView.getItems().remove(employee);
+
+    }
+
+    //Clear text fields and check boxes
+    public void clear(ActionEvent actionEvent) {
+
+        firstNameTextField.clear();
+        lastNameTextField.clear();
+        isActiveCheckBox.setSelected(false);
+    }
+
 }
