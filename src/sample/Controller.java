@@ -33,6 +33,7 @@ public class Controller implements Initializable
         employeeListView.getSelectionModel().selectedItemProperty().addListener((
                 ObservableValue < ? extends Worker> ov, Worker old_val, Worker new_val)->
                 {
+                    //this method print out values of selected item from the listview to the textfields as well as the checkbox
                     Worker selectedItem = employeeListView.getSelectionModel().getSelectedItem();
 
                     firstNameTextField.setText(((Employee)selectedItem).firstName);
@@ -41,7 +42,7 @@ public class Controller implements Initializable
                 }
                 );
 
-        //Generate some dummy employees for the listview with the count of 10 or less
+        //Generate some dummy employees for the listview with the for loop and some generic staff/faculty
         ObservableList<Employee> items = employeeListView.getItems();
         for(int i = 0; i < 10; i++)
         {
